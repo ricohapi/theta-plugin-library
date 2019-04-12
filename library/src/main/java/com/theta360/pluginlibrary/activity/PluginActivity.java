@@ -23,9 +23,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import com.theta360.pluginlibrary.UncaughtException;
-import com.theta360.pluginlibrary.UncaughtException.Callback;
-import com.theta360.pluginlibrary.callback.KeyCallback;
+
 import com.theta360.pluginlibrary.receiver.KeyReceiver;
 import com.theta360.pluginlibrary.values.ExitStatus;
 import com.theta360.pluginlibrary.values.LedColor;
@@ -41,7 +39,7 @@ public abstract class PluginActivity extends AppCompatActivity {
     private String mUserOption;
     private boolean isApConnected = false;
 
-    private KeyCallback mKeyCallback;
+    private KeyEvent.Callback mKeyCallback;
     private KeyReceiver mKeyReceiver;
     private KeyReceiver.Callback onKeyReceiver = new KeyReceiver.Callback() {
         @Override
@@ -78,14 +76,7 @@ public abstract class PluginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // Fix to be portrait
-        UncaughtException uncaughtException = new UncaughtException(getApplicationContext(),
-                new Callback() {
-                    @Override
-                    public void onException(String message) {
-                        notificationError(message);
-                    }
-                });
-        Thread.setDefaultUncaughtExceptionHandler(uncaughtException);
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> notificationError(e.getMessage()));
     }
 
     @Override
@@ -115,7 +106,7 @@ public abstract class PluginActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public void setKeyCallback(KeyCallback keyCallback) {
+    public void setKeyCallback(KeyEvent.Callback keyCallback) {
         mKeyCallback = keyCallback;
     }
 
