@@ -19,6 +19,11 @@ package com.theta360.pluginlibrary.activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +35,9 @@ import com.theta360.pluginlibrary.receiver.KeyReceiver;
 import com.theta360.pluginlibrary.values.ExitStatus;
 import com.theta360.pluginlibrary.values.LedColor;
 import com.theta360.pluginlibrary.values.LedTarget;
+import com.theta360.pluginlibrary.values.OledDisplay;
+import com.theta360.pluginlibrary.values.TextArea;
+import java.util.Map;
 
 /**
  * PluginActivity
@@ -269,6 +277,94 @@ public abstract class PluginActivity extends AppCompatActivity {
         sendBroadcast(intent);
     }
 
+    /**
+     * Set LED or OLED brightness
+     *
+     * @param ledTarget target LED or OLED
+     * @param brightness brightness 0-100 (percent)
+     */
+    public void notificationLedBrightnessSet(@NonNull LedTarget ledTarget, int brightness) {
+        if (brightness < 0) {
+            brightness = 0;
+        }
+        if (brightness > 100) {
+            brightness = 100;
+        }
+
+        Intent intent = new Intent(Constants.ACTION_LED_BRIGHTNESS_SET);
+        intent.putExtra(Constants.TARGET, ledTarget.toString());
+        intent.putExtra(Constants.BRIGHTNESS, brightness);
+        sendBroadcast(intent);
+    }
+
+    /**
+     * Display bitmap on OLED
+     *
+     * @param bitmap Bitmap displayed on OLED (Bitmap size is height 24 or 36 and width 128)
+     */
+    public void notificationOledImageShow(@NonNull Bitmap bitmap) {
+        if ((bitmap.getHeight() == 24 || bitmap.getHeight() == 36)
+                && bitmap.getWidth() == 128) {
+            Intent intent = new Intent(Constants.ACTION_OLED_IMAGE_SHOW);
+            intent.putExtra(Constants.BITMAP, bitmap);
+            sendBroadcast(intent);
+        }
+    }
+
+    /**
+     * Blink bitmap on OLED
+     *
+     * @param bitmap Bitmap displayed on OLED (Bitmap size is height 24 or 36 and width 128)
+     * @param period period 250-2000 (msec)
+     */
+    public void notificationOledImageBlink(@NonNull Bitmap bitmap, int period) {
+        if ((bitmap.getHeight() == 24 || bitmap.getHeight() == 36)
+                && bitmap.getWidth() == 128) {
+            if (period < 250) {
+                period = 250;
+            }
+            if (period > 2000) {
+                period = 2000;
+            }
+
+            Intent intent = new Intent(Constants.ACTION_OLED_IMAGE_BLINK);
+            intent.putExtra(Constants.BITMAP, bitmap);
+            intent.putExtra(Constants.PERIOD, period);
+            sendBroadcast(intent);
+        }
+    }
+
+    /**
+     * Displays a string in the specified area
+     *
+     * @param textMap Specify TextArea for Key and string to be displayed for Value
+     */
+    public void notificationOledTextShow(@NonNull Map<TextArea, String> textMap) {
+        Intent intent = new Intent(Constants.ACTION_OLED_TEXT_SHOW);
+        for (Map.Entry<TextArea, String> map : textMap.entrySet()) {
+            intent.putExtra(map.getKey().toString(), map.getValue());
+        }
+        sendBroadcast(intent);
+    }
+
+    /**
+     * Turn off OLED
+     */
+    public void notificationOledHide() {
+        sendBroadcast(new Intent(Constants.ACTION_OLED_HIDE));
+    }
+
+    /**
+     * Setting the OLED display during plug-in mode
+     *
+     * @param oledDisplay Plug-in display or basic display
+     */
+    public void notificationOledDisplaySet(@NonNull OledDisplay oledDisplay) {
+        Intent intent = new Intent(Constants.ACTION_OLED_DISPLAY_SET);
+        intent.putExtra(Constants.DISPLAY, oledDisplay.toString());
+        sendBroadcast(intent);
+    }
+
     public void notificationWlanOff() {
         sendBroadcast(new Intent(Constants.ACTION_WLAN_OFF));
     }
@@ -285,6 +381,20 @@ public abstract class PluginActivity extends AppCompatActivity {
         Intent intent = new Intent(Constants.ACTION_DATABASE_UPDATE);
         intent.putExtra(Constants.TARGETS, targets);
         sendBroadcast(intent);
+    }
+
+    /**
+     * Start camera attitude control sensor
+     */
+    public void notificationSensorStart() {
+        sendBroadcast(new Intent(Constants.ACTION_MOTION_SENSOR_START));
+    }
+
+    /**
+     * Stop the camera attitude control sensor
+     */
+    public void notificationSensorStop() {
+        sendBroadcast(new Intent(Constants.ACTION_MOTION_SENSOR_STOP));
     }
 
     /**
@@ -319,5 +429,33 @@ public abstract class PluginActivity extends AppCompatActivity {
      */
     public void notificationErrorOccured() {
         sendBroadcast(new Intent(Constants.ACTION_ERROR_OCCURED));
+    }
+
+    /**
+     * Get THETA model name
+     *
+     * @return THETA ModelName (eg. You can get the model name like "RICOH THETA *")
+     */
+    public String getThetaModel() {
+        return Build.MODEL;
+    }
+
+    /**
+     * Get the firmwareversion of THETA
+     *
+     * @return THETA FirmwareVersion
+     */
+    public String getFirmwareVersion() {
+        try {
+            PackageInfo packageInfo = getPackageManager()
+                    .getPackageInfo(Constants.RECEPTOR, PackageManager.GET_META_DATA);
+            if (packageInfo != null) {
+                return packageInfo.versionName;
+            }
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return "0.00.0";
     }
 }
