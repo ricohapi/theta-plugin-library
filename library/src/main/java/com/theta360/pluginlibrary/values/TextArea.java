@@ -17,37 +17,21 @@
 package com.theta360.pluginlibrary.values;
 
 /**
- * LedTarget
+ * TextArea
  */
-public enum LedTarget {
-    LED1("LED1"),//Battery
-    LED2("LED2"),//Status
-    LED3("LED3"),//WLAN
-    LED4("LED4"),//Still
-    LED5("LED5"),//Video
-    LED6("LED6"),//Live
-    LED7("LED7"),//Video recording
-    LED8("LED8"),//Error
-    OLED("OLED");
+public enum TextArea {
+    TOP("text-top"),
+    MIDDLE("text-middle"),
+    BOTTOM("text-bottom");
 
-    private final String mLedTarget;
+    private final String mTextArea;
 
-    LedTarget(final String ledTarget) {
-        this.mLedTarget = ledTarget;
-    }
-
-    public static LedTarget getValue(String _ledTarget) {
-        for (LedTarget ledTarget : LedTarget.values()) {
-            if (ledTarget.toString().equals(_ledTarget)) {
-                return ledTarget;
-            }
-        }
-
-        return null;
+    TextArea(final String textArea) {
+        this.mTextArea = textArea;
     }
 
     @Override
     public String toString() {
-        return this.mLedTarget;
+        return this.mTextArea;
     }
 }
