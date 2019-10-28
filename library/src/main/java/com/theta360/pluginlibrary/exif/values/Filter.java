@@ -23,7 +23,8 @@ public enum Filter {
     OFF("RicStillCaptureStd"),                          // Filter OFF
     NOISE_REDUCTION("RicStillCaptureMultiRawNR"),   // Noise reduction
     HDR("RicStillCaptureMultiYuvHdr"),                  // HDR
-    DR_COMP("RicStillCaptureWDR"),;                     // DR Composite
+    DR_COMP("RicStillCaptureWDR"),                     // DR Composite
+    HH_HDR("RicStillCaptureMultiYuvHhHdr");            // Hh HDR
 
     private final String mFilterIndex;
 

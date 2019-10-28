@@ -324,11 +324,11 @@ public class Box {
                 readTimestamp();
                 shiftTimezone();
 
-                String model = MovieSettings.getModel();
+                String model = CameraSettings.getThetaModel().toString();
                 byte[] bAmod = model.getBytes();
 
                 byte[] bAswr = null;
-                String firmwareVersion = MovieSettings.getFirmwareVersion();
+                String firmwareVersion = CameraSettings.getThetaFirmwareVersion();
                 bAswr = getVersionFullName(model, firmwareVersion).getBytes();
 
                 byte[] bAday = null;
@@ -339,7 +339,7 @@ public class Box {
 
                 byte[] bAxyz = new AXYZ().getData();
 
-                String manufacturer = MovieSettings.getManufacturer();
+                String manufacturer = CameraSettings.getManufacturer();
                 byte[] bAmak = manufacturer.getBytes();
 
                 byte[] bManu = new byte[6];

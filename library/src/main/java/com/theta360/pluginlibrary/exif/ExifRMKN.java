@@ -54,8 +54,8 @@ public class ExifRMKN extends Exif {
      * Set zenith correction disabled in MP4 file metadata
      */
     @Override
-    public void setExifSphere(@NonNull SensorValues sensorValues) {
-        setExifSphere(sensorValues, false);
+    public void setExifSphere() {
+        setExifSphere(false);
     }
 
     private boolean parseHeader() {
@@ -74,8 +74,8 @@ public class ExifRMKN extends Exif {
         return mBuffer;
     }
 
-    public byte[] replaceRMKN(GpsInfo gpsInfo, SensorValues sensorValues, String serialNumber) {
-        setAttribute(IFD.MAPP1_IFDM, Tag.TAG_RM_0005, String.format("%16s", serialNumber.substring(0, 8)).replace(" ", "0"));
+    public byte[] replaceRMKN() {
+        setAttribute(IFD.MAPP1_IFDM, Tag.TAG_RM_0005, String.format("%016X", CameraSettings.getThetaSerialNumber()));
 
         setAttribute(IFD.MAPP1_IFDM, Tag.TAG_RM_1000, (short) 2);
 
@@ -105,9 +105,9 @@ public class ExifRMKN extends Exif {
             setAttribute(IFD.MAPP1_EXIF, Tag.TAG_EXPOSUREMODE, (short) 0);
         }
 
-        setExifGPS(gpsInfo, sensorValues);
+        setExifGPS();
 
-        setExifSphere(sensorValues);
+        setExifSphere();
 
         setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0108, (short) 0x01);
 

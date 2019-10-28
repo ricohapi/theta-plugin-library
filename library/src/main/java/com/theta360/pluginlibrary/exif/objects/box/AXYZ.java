@@ -16,8 +16,8 @@
 
 package com.theta360.pluginlibrary.exif.objects.box;
 
+import com.theta360.pluginlibrary.exif.CameraSettings;
 import com.theta360.pluginlibrary.exif.GpsInfo;
-import com.theta360.pluginlibrary.exif.MovieSettings;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Locale;
@@ -25,7 +25,7 @@ import java.util.Locale;
 public class AXYZ {
     public byte[] getData() {
         byte[] bAxyz = null;
-        GpsInfo gpsInfo = MovieSettings.getGpsInfo();
+        GpsInfo gpsInfo = CameraSettings.getGpsInfo();
         if (gpsInfo != null && gpsInfo.hasValue()) {
             if (gpsInfo.getLat().intValue() != GpsInfo.INVALID &&
                     gpsInfo.getLng().intValue() != GpsInfo.INVALID &&

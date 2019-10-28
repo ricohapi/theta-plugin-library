@@ -17,6 +17,7 @@
 package com.theta360.pluginlibrary.exif;
 
 import com.theta360.pluginlibrary.exif.objects.box.AudioDebug;
+import com.theta360.pluginlibrary.exif.objects.exif.ImageQualityDebug;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -29,7 +30,6 @@ import org.joda.time.DateTime;
 
 import com.theta360.pluginlibrary.exif.utils.Buffer;
 import com.theta360.pluginlibrary.exif.utils.DateTimeFormats;
-import com.theta360.pluginlibrary.exif.values.Aperture;
 import com.theta360.pluginlibrary.exif.values.ExposureProgram;
 import com.theta360.pluginlibrary.exif.values.Filter;
 import com.theta360.pluginlibrary.exif.values.Gain;
@@ -67,6 +67,7 @@ public class Exif {
             new TagSpec(Tag.TAG_IMAGEDESCRIPTION),
             new TagSpec(Tag.TAG_MAKE),
             new TagSpec(Tag.TAG_MODEL),
+            new TagSpec(Tag.TAG_SUBIFDS),
             new TagSpec(Tag.TAG_COPYRIGHT),
             new TagSpec(Tag.TAG_EXIFIFDPOINTER),
             new TagSpec(Tag.TAG_GPSINFOIFDPOINTER),
@@ -133,6 +134,7 @@ public class Exif {
             new TagSpec(Tag.TAG_R_0008),
             new TagSpec(Tag.TAG_R_0009),
             new TagSpec(Tag.TAG_R_000A),
+            new TagSpec(Tag.TAG_R_000E),
             new TagSpec(Tag.TAG_R_0101),
             new TagSpec(Tag.TAG_R_0102),
             new TagSpec(Tag.TAG_R_0103),
@@ -214,20 +216,12 @@ public class Exif {
 
     /**
      * Update the MakerNote and some Exif tags in the captured image data held in the Exif object.
-     *
-     * @param serialNumber Serial number of unit for write to `MakerNote`<br>
-     *                     (Within 16 bytes not including trailing NULL)
-     * @param verName Version name (Same as XMP Version name)
      */
-    public void setExifMaker(@NonNull String serialNumber, @NonNull String verName) {
-        if (serialNumber.length() > 16) {
-            serialNumber = serialNumber.substring(0, 16);
-        } else if (serialNumber.length() < 16) {
-            serialNumber = String.format("%16s", serialNumber).replace(" ", "0");
-        }
-        setAttribute(IFD.MAPP1_IFDM, Tag.TAG_RM_0005, serialNumber);
+    public void setExifMaker() {
+        setAttribute(IFD.MAPP1_IFDM, Tag.TAG_RM_0005,
+                String.format("%016X", CameraSettings.getThetaSerialNumber()));
 
-        String verNumber = makeVersionNumber(verName);
+        String verNumber = makeVersionNumber(CameraSettings.getThetaFirmwareVersion());
         setAttribute(IFD.MAPP1_IFDM, Tag.TAG_RM_0002, verNumber + "\0");
 
         WhiteBalance whiteBalance = CameraSettings.getWhiteBalance();
@@ -363,21 +357,18 @@ public class Exif {
 
     /**
      * Set the sphere information to the captured image data held in the Exif object.
-     *
-     * @param sensorValues SensorValues object
      */
-    public void setExifSphere(@NonNull SensorValues sensorValues) {
-        setExifSphere(sensorValues, CameraSettings.isZenith());
+    public void setExifSphere() {
+        setExifSphere(CameraSettings.isZenith());
     }
 
     /**
      * Set the sphere information to the captured image data held in the Exif object.
      *
-     * @param sensorValues SensorValues object
      * @param isZenith true: Jpeg file processing and zenith correction enabled
      *                 false: When processing other than Jpeg files or zenith correction is disabled
      */
-    protected void setExifSphere(@NonNull SensorValues sensorValues, boolean isZenith) {
+    protected void setExifSphere(boolean isZenith) {
         SphereType sphereType = CameraSettings.getSphereType();
         setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0001, (short) sphereType.getInt());
 
@@ -387,12 +378,15 @@ public class Exif {
         setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0006, filteroff);
         setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0002, filteroff);
         setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0008, filteroff);
+        setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_000E, filteroff);
         if (filter == Filter.NOISE_REDUCTION) {
             setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0006, filteron);
         } else if (filter == Filter.HDR) {
             setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0002, filteron);
         } else if (filter == Filter.DR_COMP) {
             setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0008, filteron);
+        } else if (filter == Filter.HH_HDR) {
+            setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_000E, filteron);
         }
 
         final byte[] abnormal = {0x00, 0x00};
@@ -419,9 +413,13 @@ public class Exif {
             setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_000A, timezone);
         }
 
-        Aperture ape = CameraSettings.getAperture();
-        int[] fnumber = {(int) ape.getFloatValue(), 1, (int) ape.getFloatValue(), 1};
-        setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0102, fnumber);
+        try {
+            ImageQualityDebug iqd = new ImageQualityDebug();
+            setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0102, iqd.getSphereFNumber());
+            iqd.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0104, 0x00);
         setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0105, 0x00);
@@ -441,8 +439,8 @@ public class Exif {
         System.arraycopy(ByteBuffer.allocate(4).putInt(denom100).array(), 0, bPitchRoll, 12, 4);
         setAttribute(IFD.MAPP1_SPHERE, Tag.TAG_R_0003, bPitchRoll);
 
-        if (sensorValues.getCompassAccuracy()) {
-            int compass = calcCompass(sensorValues);
+        if (CameraSettings.getSensorValues().getCompassAccuracy()) {
+            int compass = calcCompass(CameraSettings.getSensorValues());
             byte[] bCompass = new byte[8];
             System.arraycopy(ByteBuffer.allocate(4).putInt(compass).array(), 0, bCompass, 0, 4);
             System.arraycopy(ByteBuffer.allocate(4).putInt(denom100).array(), 0, bCompass, 4, 4);
@@ -470,11 +468,10 @@ public class Exif {
 
     /**
      * Set GPS information to the captured image data held in the Exif object.
-     *
-     * @param gpsInfo GPSInfo object
-     * @param sensorValues SensorValues object
      */
-    public void setExifGPS(@NonNull GpsInfo gpsInfo, @NonNull SensorValues sensorValues) {
+    public void setExifGPS() {
+        GpsInfo gpsInfo = CameraSettings.getGpsInfo();
+        SensorValues sensorValues = CameraSettings.getSensorValues();
         final byte[] versionid = {0x02, 0x03, 0x00, 0x00};
         setAttribute(IFD.MAPP1_GPS, Tag.TAG_GPSVERSIONID, versionid);
 

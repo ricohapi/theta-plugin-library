@@ -75,21 +75,16 @@ public class Xmp {
      * @param os Output stream object (eg. FileOutputStream)
      * @param width Image width (pixels)
      * @param height Image height (pixels)
-     * @param sensorValues SensorValues object
      * @param pitch PitchRoll PitchValue
      * @param roll PitchRoll RollValue
-     * @param modelName Model name
-     * @param verName Version name
      */
-    public static void setXmp(@NonNull byte[] data, @NonNull OutputStream os, int width, int height, @NonNull SensorValues sensorValues, int pitch, int roll,@NonNull String modelName, @NonNull String verName) {
+    public static void setXmp(@NonNull byte[] data, @NonNull OutputStream os, int width, int height, int pitch, int roll) {
         int compass = 0;
 
-        if (sensorValues != null) {
-            compass = calcCompass(sensorValues);
-        }
+        compass = calcCompass(CameraSettings.getSensorValues());
 
         // Make XMPToolkit string
-        String xmptk = modelName + " Ver" + verName;
+        String xmptk = CameraSettings.getThetaModel() + " Ver" + CameraSettings.getThetaFirmwareVersion();
 
         StringBuilder sb = new StringBuilder();
         sb.append(XPACKET_START);
@@ -128,7 +123,7 @@ public class Xmp {
                 CROPPED_AREA_TOP_PIXELS_VALUE, CROPPED_AREA_TOP_PIXELS_END));
         sb.append(LF);
         // If the accuracy of the compass is low, the following information is not recorded.
-        if (sensorValues != null && sensorValues.getCompassAccuracy()) {
+        if (CameraSettings.getSensorValues().getCompassAccuracy()) {
             sb.append(String.format(Locale.ENGLISH, "%s%.1f%s", POSE_HEADING_DEGREES_START,
                     compass / 100.0, POSE_HEADING_DEGREES_END));
             sb.append(LF);

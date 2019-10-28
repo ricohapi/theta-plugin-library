@@ -17,7 +17,6 @@
 package com.theta360.pluginlibrary.exif.objects.box;
 
 import com.theta360.pluginlibrary.exif.ExifRMKN;
-import com.theta360.pluginlibrary.exif.MovieSettings;
 
 /**
  * RMKN
@@ -26,8 +25,7 @@ public class RMKN {
     public byte[] getData(byte[] bRMKN) {
         ExifRMKN eRMKN = new ExifRMKN(bRMKN, true);
 
-        eRMKN.replaceRMKN(MovieSettings.getGpsInfo(), MovieSettings.getSensorValues(),
-                MovieSettings.getSerialNumber());
+        eRMKN.replaceRMKN();
 
         return eRMKN.getExif();
     }

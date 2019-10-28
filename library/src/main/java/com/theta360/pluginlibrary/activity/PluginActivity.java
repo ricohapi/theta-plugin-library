@@ -19,11 +19,7 @@ package com.theta360.pluginlibrary.activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -429,33 +425,5 @@ public abstract class PluginActivity extends AppCompatActivity {
      */
     public void notificationErrorOccured() {
         sendBroadcast(new Intent(Constants.ACTION_ERROR_OCCURED));
-    }
-
-    /**
-     * Get THETA model name
-     *
-     * @return THETA ModelName (eg. You can get the model name like "RICOH THETA *")
-     */
-    public String getThetaModel() {
-        return Build.MODEL;
-    }
-
-    /**
-     * Get the firmwareversion of THETA
-     *
-     * @return THETA FirmwareVersion
-     */
-    public String getFirmwareVersion() {
-        try {
-            PackageInfo packageInfo = getPackageManager()
-                    .getPackageInfo(Constants.RECEPTOR, PackageManager.GET_META_DATA);
-            if (packageInfo != null) {
-                return packageInfo.versionName;
-            }
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return "0.00.0";
     }
 }

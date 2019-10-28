@@ -16,7 +16,8 @@
 
 package com.theta360.pluginlibrary.exif.objects.box;
 
-import com.theta360.pluginlibrary.exif.MovieSettings;
+import com.theta360.pluginlibrary.exif.CameraSettings;
+import com.theta360.pluginlibrary.values.ThetaModel;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -28,18 +29,16 @@ import java.nio.ByteBuffer;
 public class AudioDebug {
     public static final int AUDIO_DEBUG_SIZE = 4;
 
-    private static final String MODEL_NAME_Z1 = "RICOH THETA Z1";
-    private static final String MODEL_NAME_V = "RICOH THETA V";
     private static final String AUDIO_PATH_Z1 = "/temp/debug/audio_debug.bin";
     private static final String AUDIO_PATH_V = "/param/debug/audio_debug.bin";
 
     private RandomAccessFile mAudioFile = null;
 
     public AudioDebug() throws IOException {
-        if (MovieSettings.getModel().equals(MODEL_NAME_Z1)) {
+        if (CameraSettings.getThetaModel() == ThetaModel.THETA_Z1) {
             File fAudio = new File(AUDIO_PATH_Z1);
             mAudioFile = new RandomAccessFile(fAudio, "r");
-        } else if (MovieSettings.getModel().equals(MODEL_NAME_V)) {
+        } else if (CameraSettings.getThetaModel() == ThetaModel.THETA_V) {
             File fAudio = new File(AUDIO_PATH_V);
             mAudioFile = new RandomAccessFile(fAudio, "r");
         } else {
