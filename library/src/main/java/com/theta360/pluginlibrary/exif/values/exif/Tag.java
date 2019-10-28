@@ -98,6 +98,7 @@ public enum Tag {
     TAG_R_0008(0x0008),
     TAG_R_0009(0x0009),
     TAG_R_000A(0x000A),
+    TAG_R_000E(0x000E),
     TAG_R_0101(0x0101),
     TAG_R_0102(0x0102),
     TAG_R_0103(0x0103),

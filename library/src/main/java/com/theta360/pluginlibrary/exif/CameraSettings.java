@@ -16,6 +16,7 @@
 
 package com.theta360.pluginlibrary.exif;
 
+import com.theta360.pluginlibrary.values.ThetaModel;
 import java.util.Date;
 import android.hardware.Camera;
 import android.support.annotation.NonNull;
@@ -43,6 +44,16 @@ import com.theta360.pluginlibrary.exif.values.ZenithCorrection;
  * CameraSettings class
  */
 public class CameraSettings {
+    private static final String DEFAULT_MANUFACTURER = "RICOH";
+    private static final String DEFAULT_FIRMWARE_VERSION = ".";
+
+    private static String mManufacturer = null;
+    private static ThetaModel mThetaModel = null;
+    private static long mThetaSerialNumber = -1;
+    private static String mThetaFirmwareVersion = null;
+    private static GpsInfo mGpsInfo = null;
+    private static SensorValues mSensorValues = null;
+
     private static ExposureProgram mExposureProgram = null;
     private static Aperture mAperture = null;
     private static ShutterSpeed mShutterSpeed = null;
@@ -62,6 +73,13 @@ public class CameraSettings {
      * Initialize the camera settings held by the object.
      */
     public static void initialize() {
+        mManufacturer = DEFAULT_MANUFACTURER;
+        mThetaModel = ThetaModel.THETA_DEF;
+        mThetaSerialNumber = 0;
+        mThetaFirmwareVersion = DEFAULT_FIRMWARE_VERSION;
+        mGpsInfo = new GpsInfo();
+        mSensorValues = new SensorValues();
+
         mFilter = Filter.OFF;
         mExposureProgram = ExposureProgram.NORMAL_PROGRAM;
         mAperture = Aperture.APERTURE_2_0;
@@ -77,6 +95,117 @@ public class CameraSettings {
         mZenithCorrection = ZenithCorrection.RIC_ZENITH_CORRECTION_OFF;
         mDngOutput = false;
     }
+
+    /**
+     * Returns the manufacturer name that is held
+     *
+     * @return manufacturer name("RICOH")
+     */
+    public static String getManufacturer() {
+        return (mManufacturer != null) ? mManufacturer : DEFAULT_MANUFACTURER;
+    }
+
+    /**
+     * Hold the manufacturer name
+     *
+     * @param manufacturer manufacturer name("RICOH")
+     */
+    public static void setManufacturer(String manufacturer) {
+        mManufacturer = manufacturer;
+    }
+
+    /**
+     * Returns the THETA serial number that is held
+     *
+     * @return serialNumber
+     */
+    public static long getThetaSerialNumber() {
+        return mThetaSerialNumber;
+    }
+
+    /**
+     * Hold the THETA serial number
+     */
+    public static void setThetaSerialNumber(long serialNumber) {
+        mThetaSerialNumber = serialNumber;
+    }
+
+    /**
+     * Returns the THETA model that is held
+     *
+     * @return ThetaModel
+     */
+    public static ThetaModel getThetaModel() {
+        return (mThetaModel != null) ? mThetaModel : ThetaModel.THETA_DEF;
+    }
+
+    /**
+     * Returns the THETA model that is held
+     *
+     * @param model ThetaModel
+     */
+    public static void setThetaModel(ThetaModel model) {
+        mThetaModel = model;
+    }
+
+    /**
+     * Returns the THETA firmware version that is held
+     *
+     * @return firmwareVersion
+     */
+    public static String getThetaFirmwareVersion() {
+        return (mThetaFirmwareVersion != null) ? mThetaFirmwareVersion : DEFAULT_FIRMWARE_VERSION;
+    }
+
+    /**
+     * Hold the THETA firmware version
+     */
+    public static void setThetaFirmwareVersion(String firmwareVersion) {
+        mThetaFirmwareVersion = firmwareVersion;
+    }
+
+    /**
+     * Returns the GPS information that is held
+     *
+     * @return GPS information
+     */
+    public static GpsInfo getGpsInfo() {
+        if (mGpsInfo == null) {
+            mGpsInfo = new GpsInfo();
+        }
+        return mGpsInfo;
+    }
+
+    /**
+     * Hold the GPS information
+     *
+     * @param gpsInfo GPS information
+     */
+    public static void setGpsInfo(GpsInfo gpsInfo) {
+        mGpsInfo = gpsInfo;
+    }
+
+    /**
+     * Returns the sensor information that is held
+     *
+     * @return sensor information
+     */
+    public static SensorValues getSensorValues() {
+        if (mSensorValues == null) {
+            mSensorValues = new SensorValues();
+        }
+        return mSensorValues;
+    }
+
+    /**
+     * Hold the sensor information
+     *
+     * @param sensorValues sensor information
+     */
+    public static void setSensorValues(SensorValues sensorValues) {
+        mSensorValues = sensorValues;
+    }
+
     /**
      * Update the camera setting value held by the object based on the setting value of Camera.Parameters.
      *
@@ -451,16 +580,25 @@ public class CameraSettings {
 
         static Aperture getAperture(@NonNull Camera.Parameters parameters) {
             String apertureIndex = parameters.get(KEY_RIC_MANUAL_EXPOSURE_AV_REAR);
+            if (apertureIndex == null) {
+                apertureIndex = parameters.get(KEY_RIC_MANUAL_EXPOSURE_AV_FRONT);
+            }
             return (apertureIndex != null) ? Aperture.getValueFromIndex(Integer.parseInt(apertureIndex)) : Aperture.APERTURE_2_0;
         }
 
         static ShutterSpeed getShutterSpeed(@NonNull Camera.Parameters parameters) {
             String shutterSpeed = parameters.get(KEY_RIC_MANUAL_EXPOSURE_PRIMARY);
+            if (shutterSpeed == null) {
+                shutterSpeed = parameters.get(KEY_RIC_MANUAL_EXPOSURE_SECONDARY);
+            }
             return (shutterSpeed != null) ? ShutterSpeed.getValueFromIndex(Integer.parseInt(shutterSpeed)) : ShutterSpeed.SHUTTER_SPEED_AUTO;
         }
 
         static Iso getIso(@NonNull Camera.Parameters parameters) {
             String iso = parameters.get(KEY_RIC_MANUAL_EXPOSURE_ISO_PRIMARY);
+            if (iso == null) {
+                iso = parameters.get(KEY_RIC_MANUAL_EXPOSURE_ISO_SECONDARY);
+            }
             return (iso != null) ? Iso.getValueFromIndex(Integer.parseInt(iso)) : Iso.ISO_AUTO;
         }
 

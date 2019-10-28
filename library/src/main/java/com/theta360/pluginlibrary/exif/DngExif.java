@@ -45,8 +45,8 @@ public class DngExif extends Exif {
      * Set zenith correction disabled in DNG file metadata
      */
     @Override
-    public void setExifSphere(@NonNull SensorValues sensorValues) {
-        setExifSphere(sensorValues, false);
+    public void setExifSphere() {
+        setExifSphere(false);
     }
 
     @Override
