@@ -1,6 +1,6 @@
 # RICOH THETA Plug-in Library
 
-Version: 2.1.0
+Version: 3.0.0
 
 ## Contents
 
@@ -8,8 +8,8 @@ Version: 2.1.0
 * [Files included in the archive](#files)
 * [Technical requirements for development](#requirements)
 * [Contents of the SDK](#contents)
-* [Getting Started](#started)
-* [Where to find the latest information](#information)
+* [How to Use](#how_to_use)
+* [See Also](#see_also)
 * [Troubleshooting](#troubleshooting)
 * [Trademark Information](#trademark)
 
@@ -48,6 +48,8 @@ The Library was tested with a RICOH THETA V under the following conditions.
 #### Hardware
 
 * RICOH THETA V
+* RICOH THETA Z1
+* RICOH THETA X
 
 ### Development Environment
 
@@ -55,31 +57,35 @@ This Library has been confirmed to operate under the following conditions.
 
 #### Operating System
 
-* Windows 10 Version 1709
-* macOS High Sierra ver.10.13
+* Windows 10 Version 21H1
+* macOS Monterey Version 12.2
 
 #### Development environment
 
-* Android&trade; Studio 3.1+
-* gradle 3.1.4
-* Android&trade; SDK (API Level 25)
-* compileSdkVersion 26
-* buildToolsVersion "27.0.3"
+* Android&trade; Studio 4.2.2
+* gradle 3.5.3
+* Android&trade; SDK (API Level 29)
+* compileSdkVersion 29
 * minSdkVersion 25
-* targetSdkVersion 25
+* targetSdkVersion 29
 
 <a name="contents"></a>
 ## Contents of the Library
 
-* The plug-in library is the main part of the SDK, with its own part of the RICOH THETA plug-in being consolidated.
-* The plug-in library implements the following functions that a standard plug-in should implement.
-    * Get button operation event
-    * Plug-in termination processing
-    * LED control
-    * Control of speaker
+* The plug-in library provides following features.
+    * Get KeyEvent for THETA V/Z1
+    * Terminate Plug-in
+    * Control LED/OLED
+    * Control speaker
+    * Simple method to send THETA specified broadcast intent, please refer to ricoh.api website for detail.
+    * Implement Camera API & MediaRecorder API interface for THETA X
+        * com.theta360.hardware.Camera
+        * com.theta360.media.MediaRecorder
+        * etc.
+    * Also implement Factory class wrapping Camera & MediaRecorder of THETA V/Z1 and THETA X.
 
-<a name="started"></a>
-## Getting Started
+<a name="how_to_use"></a>
+## How to Use
 
 ### Add repository
 
@@ -97,20 +103,20 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.theta360:pluginlibrary:2.0.0'
+    implementation 'com.theta360:pluginlibrary:3.0.0'
 }
 ```
 
-<a name="information"></a>
-## Where to find the latest information
+<a name="see_also"></a>
+## See Also
 
-* The latest information is published on [the WEB site](https://api.ricoh/docs/theta-plugin/).
-* The latest Library is released on [the GitHub project](https://github.com/ricohapi/theta-plugin-library).
+* The latest information related to plug-in development is published on [api.ricoh](https://api.ricoh/docs/theta-plugin/).
+* The latest plug-in library is released on [the GitHub project](https://github.com/ricohapi/theta-plugin-library).
 
 <a name="troubleshooting"></a>
 ## Troubleshooting
 
-If you have a request, create an issue on [the GitHub project](https://github.com/ricohapi/theta-plugin-library/issues).
+If you had a request or found a problem, please create an issue on [the GitHub project](https://github.com/ricohapi/theta-plugin-library/issues).
 
 <a name="trademark"></a>
 ## Trademark Information

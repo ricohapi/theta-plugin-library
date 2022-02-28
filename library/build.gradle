@@ -1,16 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
-def version = '2.1.0'
+def version = '3.0.0'
 def repo = new File(rootDir, "repository")
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 29
     defaultConfig {
         minSdkVersion 25
-        targetSdkVersion 25
-        versionCode 6
+        targetSdkVersion 29
+        versionCode 8
         versionName "${version}"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -39,6 +38,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation files('..\\libs\\XCamera.jar')
 }
 
 uploadArchives {

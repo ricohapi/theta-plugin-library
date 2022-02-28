@@ -24,15 +24,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import com.theta360.pluginlibrary.UncaughtException;
-import com.theta360.pluginlibrary.UncaughtException.Callback;
+
 import com.theta360.pluginlibrary.callback.KeyCallback;
-import com.theta360.pluginlibrary.receiver.KeyReceiver;
 import com.theta360.pluginlibrary.values.ExitStatus;
 import com.theta360.pluginlibrary.values.LedColor;
 import com.theta360.pluginlibrary.values.LedTarget;
 import com.theta360.pluginlibrary.values.OledDisplay;
+import com.theta360.pluginlibrary.UncaughtException;
+import com.theta360.pluginlibrary.receiver.KeyReceiver;
 import com.theta360.pluginlibrary.values.TextArea;
+import com.theta360.pluginlibrary.values.ThetaModel;
+
 import java.util.Map;
 
 /**
@@ -77,13 +79,46 @@ public abstract class PluginActivity extends AppCompatActivity {
         }
     };
 
+    // For THETA X
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        int keyCode = event.getKeyCode();
+        switch(event.getAction()) {
+            case KeyEvent.ACTION_DOWN:
+                if (event.getKeyCode() == KeyReceiver.KEYCODE_MEDIA_RECORD
+                        && event.isLongPress()) {
+                    if (mKeyCallback != null) {
+                        mKeyCallback.onKeyLongPress(keyCode, event);
+                    }
+                    if (isAutoClose) {
+                        close();
+                    }
+                } else {
+                    if (mKeyCallback != null) {
+                        if (event.getRepeatCount() == 0) {
+                            mKeyCallback.onKeyDown(keyCode, event);
+                        } else if (event.isLongPress()) {
+                            mKeyCallback.onKeyLongPress(keyCode, event);
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.ACTION_UP:
+                if (mKeyCallback != null) {
+                    mKeyCallback.onKeyUp(keyCode, event);
+                }
+                break;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // Fix to be portrait
         UncaughtException uncaughtException = new UncaughtException(getApplicationContext(),
-                new Callback() {
+                new UncaughtException.Callback() {
                     @Override
                     public void onException(String message) {
                         notificationError(message);
@@ -172,28 +207,44 @@ public abstract class PluginActivity extends AppCompatActivity {
      * Sound of starting long exposure capture
      */
     public void notificationAudioOpen() {
-        sendBroadcast(new Intent(Constants.ACTION_AUDIO_SH_OPEN));
+        if (ThetaModel.isVCameraModel()) {
+            sendBroadcast(new Intent(Constants.ACTION_AUDIO_SH_OPEN));
+        } else {
+            sendBroadcast(new Intent(Constants.ACTION_AUDIO_SHUTTER_OPEN));
+        }
     }
 
     /**
      * Sound of ending long exposure capture
      */
     public void notificationAudioClose() {
-        sendBroadcast(new Intent(Constants.ACTION_AUDIO_SH_CLOSE));
+        if (ThetaModel.isVCameraModel()) {
+            sendBroadcast(new Intent(Constants.ACTION_AUDIO_SH_CLOSE));
+        } else {
+            sendBroadcast(new Intent(Constants.ACTION_AUDIO_SHUTTER_CLOSE));
+        }
     }
 
     /**
      * Sound of starting movie recording
      */
     public void notificationAudioMovStart() {
-        sendBroadcast(new Intent(Constants.ACTION_AUDIO_MOVSTART));
+        if (ThetaModel.isVCameraModel()) {
+            sendBroadcast(new Intent(Constants.ACTION_AUDIO_MOVSTART));
+        } else {
+            sendBroadcast(new Intent(Constants.ACTION_AUDIO_MOVIE_START));
+        }
     }
 
     /**
      * Sound of stopping movie recording
      */
     public void notificationAudioMovStop() {
-        sendBroadcast(new Intent(Constants.ACTION_AUDIO_MOVSTOP));
+        if (ThetaModel.isVCameraModel()) {
+            sendBroadcast(new Intent(Constants.ACTION_AUDIO_MOVSTOP));
+        } else {
+            sendBroadcast(new Intent(Constants.ACTION_AUDIO_MOVIE_STOP));
+        }
     }
 
     /**
@@ -208,6 +259,24 @@ public abstract class PluginActivity extends AppCompatActivity {
      */
     public void notificationAudioWarning() {
         sendBroadcast(new Intent(Constants.ACTION_AUDIO_WARNING));
+    }
+
+    /**
+     * Brightness of display
+     *
+     * @param brightness brightness 0-100(percent)
+     */
+    public void notificationScreenBrightnessSet(@NonNull int brightness) {
+        if (brightness < 0) {
+            brightness = 0;
+        }
+        if (brightness > 100) {
+            brightness = 100;
+        }
+
+        Intent intent = new Intent(Constants.ACTION_SCREEN_BRIGHTNESS_SET);
+        intent.putExtra(Constants.BRIGHTNESS, brightness);
+        sendBroadcast(intent);
     }
 
     /**
@@ -373,6 +442,18 @@ public abstract class PluginActivity extends AppCompatActivity {
         sendBroadcast(new Intent(Constants.ACTION_WLAN_CL));
     }
 
+    /**
+     * Updating the Database in X Models
+     */
+    public void notificationDatabaseUpdate(@NonNull String target) {
+        Intent intent = new Intent(Constants.ACTION_DATABASE_UPDATE);
+        intent.putExtra(Constants.TARGETS, target);
+        sendBroadcast(intent);
+    }
+
+    /**
+     * Updating the Database in V/Z1 Models
+     */
     public void notificationDatabaseUpdate(@NonNull String[] targets) {
         Intent intent = new Intent(Constants.ACTION_DATABASE_UPDATE);
         intent.putExtra(Constants.TARGETS, targets);
@@ -391,6 +472,20 @@ public abstract class PluginActivity extends AppCompatActivity {
      */
     public void notificationSensorStop() {
         sendBroadcast(new Intent(Constants.ACTION_MOTION_SENSOR_STOP));
+    }
+
+    /**
+     * Start of camera control by WebApi
+     */
+    public void notificationWebApiCameraOpen() {
+        sendBroadcast(new Intent(Constants.ACTION_PLUGIN_WEBAPI_CAMERA_OPEN));
+    }
+
+    /**
+     * Stop of camera control by WebApi
+     */
+    public void notificationWebApiCameraClose() {
+        sendBroadcast(new Intent(Constants.ACTION_PLUGIN_WEBAPI_CAMERA_CLOSE));
     }
 
     /**
