@@ -275,7 +275,7 @@ public abstract class PluginActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(Constants.ACTION_SCREEN_BRIGHTNESS_SET);
-        intent.putExtra(Constants.BRIGHTNESS, brightness);
+        intent.putExtra(Constants.BRIGHTNESS, Integer.valueOf(brightness).toString());
         sendBroadcast(intent);
     }
 
@@ -358,7 +358,11 @@ public abstract class PluginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(Constants.ACTION_LED_BRIGHTNESS_SET);
         intent.putExtra(Constants.TARGET, ledTarget.toString());
-        intent.putExtra(Constants.BRIGHTNESS, brightness);
+        if (ThetaModel.isVCameraModel()) {
+            intent.putExtra(Constants.BRIGHTNESS, brightness);
+        } else {
+            intent.putExtra(Constants.BRIGHTNESS, Integer.valueOf(brightness).toString());
+        }
         sendBroadcast(intent);
     }
 
