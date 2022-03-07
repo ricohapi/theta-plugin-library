@@ -1,6 +1,6 @@
 # RICOH THETA Plug-in Library
 
-Version: 3.0.0
+Version: 3.0.1
 
 ## Contents
 
@@ -41,7 +41,7 @@ Copyright &copy; 2018 Ricoh Company, Ltd.
 <a name="requirements"></a>
 ## Technical requirements for development
 
-The Library was tested with a RICOH THETA V under the following conditions.
+This Library has been tested under the following conditions.
 
 ### Camera
 
@@ -72,7 +72,7 @@ This Library has been confirmed to operate under the following conditions.
 <a name="contents"></a>
 ## Contents of the Library
 
-* The plug-in library provides following features.
+* This plug-in library provides following features.
     * Get KeyEvent for THETA V/Z1
     * Terminate Plug-in
     * Control LED/OLED
@@ -103,7 +103,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.theta360:pluginlibrary:3.0.0'
+    implementation 'com.theta360:pluginlibrary:3.0.1'
 }
 ```
 
