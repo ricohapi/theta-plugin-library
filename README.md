@@ -7,7 +7,7 @@ Version: 3.0.1
 * [Terms of Service](#terms)
 * [Files included in the archive](#files)
 * [Technical requirements for development](#requirements)
-* [Contents of the Library](#contents)
+* [Contents of the Library](#library)
 * [How to Use](#how_to_use)
 * [See Also](#see_also)
 * [Troubleshooting](#troubleshooting)
@@ -69,7 +69,7 @@ This Library has been confirmed to operate under the following conditions.
 * minSdkVersion 25
 * targetSdkVersion 29
 
-<a name="contents"></a>
+<a name="library"></a>
 ## Contents of the Library
 
 * This plug-in library provides following features.
