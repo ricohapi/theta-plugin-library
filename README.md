@@ -112,6 +112,8 @@ dependencies {
 
 * The latest information related to plug-in development is published on [api.ricoh](https://api.ricoh/docs/theta-plugin/).
 * The latest plug-in library is released on [the GitHub project](https://github.com/ricohapi/theta-plugin-library).
+* The example plugin projects are below.
+  * [RICOH THETA Plug-in SDK](https://github.com/ricohapi/theta-plugin-sdk) is the template project for the plug-in development.  
 
 <a name="troubleshooting"></a>
 ## Troubleshooting
