@@ -7,7 +7,7 @@ Version: 3.0.1
 * [Terms of Service](#terms)
 * [Files included in the archive](#files)
 * [Technical requirements for development](#requirements)
-* [Contents of the SDK](#contents)
+* [Contents of the Library](#contents)
 * [How to Use](#how_to_use)
 * [See Also](#see_also)
 * [Troubleshooting](#troubleshooting)
@@ -20,7 +20,7 @@ Version: 3.0.1
 
 By using the RICOH THETA Plug-in Library, you are agreeing to the above and the license terms, [LICENSE.txt](LICENSE.txt).
 
-Copyright &copy; 2018 Ricoh Company, Ltd.
+Copyright &copy; 2018-2022 Ricoh Company, Ltd.
 
 <a name="files"></a>
 ## Files included in the archive
