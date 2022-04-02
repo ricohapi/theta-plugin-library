@@ -79,8 +79,8 @@ This Library has been confirmed to operate under the following conditions.
     * Control speaker
     * Simple method to send THETA specified broadcast intent, please refer to ricoh.api website for detail.
     * Implement Camera API & MediaRecorder API interface for THETA X
-        * com.theta360.hardware.Camera
-        * com.theta360.media.MediaRecorder
+        * theta360.hardware.Camera
+        * theta360.media.MediaRecorder
         * etc.
     * Also implement Factory class wrapping Camera & MediaRecorder of THETA V/Z1 and THETA X.
 
