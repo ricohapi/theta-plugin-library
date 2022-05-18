@@ -7,7 +7,7 @@ Version: 3.0.2
 * [Terms of Service](#terms)
 * [Files included in the archive](#files)
 * [Technical requirements for development](#requirements)
-* [Contents of the SDK](#contents)
+* [Contents of the Library](#library)
 * [How to Use](#how_to_use)
 * [See Also](#see_also)
 * [Troubleshooting](#troubleshooting)
@@ -20,7 +20,7 @@ Version: 3.0.2
 
 By using the RICOH THETA Plug-in Library, you are agreeing to the above and the license terms, [LICENSE.txt](LICENSE.txt).
 
-Copyright &copy; 2018 Ricoh Company, Ltd.
+Copyright &copy; 2018-2022 Ricoh Company, Ltd.
 
 <a name="files"></a>
 ## Files included in the archive
@@ -69,7 +69,7 @@ This Library has been confirmed to operate under the following conditions.
 * minSdkVersion 25
 * targetSdkVersion 29
 
-<a name="contents"></a>
+<a name="library"></a>
 ## Contents of the Library
 
 * This plug-in library provides following features.
@@ -79,8 +79,8 @@ This Library has been confirmed to operate under the following conditions.
     * Control speaker
     * Simple method to send THETA specified broadcast intent, please refer to ricoh.api website for detail.
     * Implement Camera API & MediaRecorder API interface for THETA X
-        * com.theta360.hardware.Camera
-        * com.theta360.media.MediaRecorder
+        * theta360.hardware.Camera
+        * theta360.media.MediaRecorder
         * etc.
     * Also implement Factory class wrapping Camera & MediaRecorder of THETA V/Z1 and THETA X.
 
@@ -112,6 +112,9 @@ dependencies {
 
 * The latest information related to plug-in development is published on [api.ricoh](https://api.ricoh/docs/theta-plugin/).
 * The latest plug-in library is released on [the GitHub project](https://github.com/ricohapi/theta-plugin-library).
+* The examples which use the RICOH THETA Plug-in Library are below.
+  * [RICOH THETA Plug-in SDK](https://github.com/ricohapi/theta-plugin-sdk) is the primary project to develop your original plug-in.  
+  * [THETA X Plug-in : Camera API Sample](https://github.com/ricohapi/theta-plugin-camera-api-sample-x) is the sample plug-in for RICOH THETA X, which uses Camera API.
 
 <a name="troubleshooting"></a>
 ## Troubleshooting
