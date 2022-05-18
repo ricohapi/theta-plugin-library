@@ -23,6 +23,15 @@ public enum ThetaModel {
         return THETA_DEF;
     }
 
+    public static Boolean isXModel() {
+        ThetaModel model =ThetaModel.getValue(ThetaInfo.getThetaModelName());
+        if (model == ThetaModel.THETA_X) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static Boolean isZ1Model() {
         ThetaModel model =ThetaModel.getValue(ThetaInfo.getThetaModelName());
         if (model == ThetaModel.THETA_Z1) {

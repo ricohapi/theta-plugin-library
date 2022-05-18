@@ -275,7 +275,15 @@ public abstract class PluginActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(Constants.ACTION_SCREEN_BRIGHTNESS_SET);
-        intent.putExtra(Constants.BRIGHTNESS, Integer.valueOf(brightness).toString());
+        if (ThetaModel.isXModel() && (
+                ThetaInfo.getThetaFirmwareVersion().equals("1.00.2") ||
+                ThetaInfo.getThetaFirmwareVersion().equals("1.10.1"))
+        ){
+            intent.putExtra(Constants.BRIGHTNESS, Integer.valueOf(brightness).toString());
+        }
+        else {
+            intent.putExtra(Constants.BRIGHTNESS, brightness);
+        }
         sendBroadcast(intent);
     }
 
@@ -358,10 +366,14 @@ public abstract class PluginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(Constants.ACTION_LED_BRIGHTNESS_SET);
         intent.putExtra(Constants.TARGET, ledTarget.toString());
-        if (ThetaModel.isVCameraModel()) {
-            intent.putExtra(Constants.BRIGHTNESS, brightness);
-        } else {
+        if (ThetaModel.isXModel() && (
+                ThetaInfo.getThetaFirmwareVersion().equals("1.00.2") ||
+                ThetaInfo.getThetaFirmwareVersion().equals("1.10.1"))
+        ){
             intent.putExtra(Constants.BRIGHTNESS, Integer.valueOf(brightness).toString());
+        }
+        else {
+            intent.putExtra(Constants.BRIGHTNESS, brightness);
         }
         sendBroadcast(intent);
     }
@@ -483,6 +495,8 @@ public abstract class PluginActivity extends AppCompatActivity {
      */
     public void notificationWebApiCameraOpen() {
         sendBroadcast(new Intent(Constants.ACTION_PLUGIN_WEBAPI_CAMERA_OPEN));
+        try { Thread.sleep(500); }
+        catch (InterruptedException e) { e.printStackTrace(); }
     }
 
     /**

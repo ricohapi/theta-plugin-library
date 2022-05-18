@@ -16,9 +16,7 @@
 
 package com.theta360.pluginlibrary.exif;
 
-import com.theta360.pluginlibrary.values.ThetaModel;
 import java.util.Date;
-import android.hardware.Camera;
 import android.support.annotation.NonNull;
 
 import org.joda.time.DateTime;
@@ -39,6 +37,8 @@ import com.theta360.pluginlibrary.exif.values.ShutterSpeed;
 import com.theta360.pluginlibrary.exif.values.SphereType;
 import com.theta360.pluginlibrary.exif.values.WhiteBalance;
 import com.theta360.pluginlibrary.exif.values.ZenithCorrection;
+import com.theta360.pluginlibrary.values.ThetaModel;
+import com.theta360.pluginlibrary.factory.Camera;
 
 /**
  * CameraSettings class
