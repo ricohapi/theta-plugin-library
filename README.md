@@ -112,8 +112,9 @@ dependencies {
 
 * The latest information related to plug-in development is published on [api.ricoh](https://api.ricoh/docs/theta-plugin/).
 * The latest plug-in library is released on [the GitHub project](https://github.com/ricohapi/theta-plugin-library).
-* The example plugin projects are below.
-  * [RICOH THETA Plug-in SDK](https://github.com/ricohapi/theta-plugin-sdk) is the template project for the plug-in development.  
+* The examples which use the RICOH THETA Plug-in Library are below.
+  * [RICOH THETA Plug-in SDK](https://github.com/ricohapi/theta-plugin-sdk) is the primary project to develop your original plug-in.  
+  * [THETA X Plug-in : Camera API Sample](https://github.com/ricohapi/theta-plugin-camera-api-sample-x) is the sample plug-in for RICOH THETA X, which uses Camera API.
 
 <a name="troubleshooting"></a>
 ## Troubleshooting
