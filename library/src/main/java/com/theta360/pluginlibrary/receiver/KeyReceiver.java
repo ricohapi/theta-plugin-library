@@ -26,6 +26,7 @@ import android.view.KeyEvent;
  * KeyReceiver
  */
 public class KeyReceiver extends BroadcastReceiver {
+    public static final int KEYCODE_VOLUME_UP = 24;
     public static final int KEYCODE_CAMERA = 27;
     public static final int KEYCODE_MEDIA_RECORD = 130;
     public static final int KEYCODE_WLAN_ON_OFF = 284;

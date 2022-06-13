@@ -3,14 +3,15 @@
   <groupId>com.theta360</groupId>
   <artifactId>pluginlibrary</artifactId>
   <versioning>
-    <release>3.0.2</release>
+    <release>3.0.3</release>
     <versions>
       <version>2.0.0</version>
       <version>2.1.0</version>
       <version>3.0.0</version>
       <version>3.0.1</version>
       <version>3.0.2</version>
+      <version>3.0.3</version>
     </versions>
-    <lastUpdated>20220415042753</lastUpdated>
+    <lastUpdated>20220611232952</lastUpdated>
   </versioning>
 </metadata>
