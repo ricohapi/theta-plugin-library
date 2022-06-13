@@ -463,7 +463,7 @@ public abstract class PluginActivity extends AppCompatActivity {
      */
     public void notificationDatabaseUpdate(@NonNull String target) {
         Intent intent = new Intent(Constants.ACTION_DATABASE_UPDATE);
-        intent.putExtra(Constants.TARGETS, target);
+        intent.putExtra(Constants.TARGET, target);
         sendBroadcast(intent);
     }
 
