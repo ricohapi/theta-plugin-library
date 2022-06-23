@@ -52,11 +52,9 @@ public class VMediaRecorder extends MediaRecorder {
 
     @Override
     public void setCamera(Camera camera) {
-        if(mMediaRecorder == null) {
-            mMediaRecorder = new android.media.MediaRecorder();
-            mCamera = camera.getVCamera();
-            mMediaRecorder.setCamera(mCamera);
-        }
+        newMediaRecorder();
+        mCamera = camera.getVCamera();
+        mMediaRecorder.setCamera(mCamera);
     }
 
     @Override
