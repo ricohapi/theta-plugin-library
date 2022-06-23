@@ -36,6 +36,7 @@ public class XMediaRecorder extends MediaRecorder {
 
     @Override
     public void setCamera(Camera camera) {
+        newMediaRecorder();
         mCamera = camera.getXCamera();
         mMediaRecorder.setCamera(mCamera);
     }

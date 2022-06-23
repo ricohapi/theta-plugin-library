@@ -41,6 +41,15 @@ public enum ThetaModel {
         }
     }
 
+    public static Boolean isVModel() {
+        ThetaModel model =ThetaModel.getValue(ThetaInfo.getThetaModelName());
+        if (model == ThetaModel.THETA_V) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static Boolean isVCameraModel() {
         ThetaModel model =ThetaModel.getValue(ThetaInfo.getThetaModelName());
         if (model == ThetaModel.THETA_Z1 || model == ThetaModel.THETA_V) {
