@@ -235,7 +235,9 @@ public class XCamera extends Camera {
     private theta360.hardware.Camera.PreviewCallback previewCallback = new theta360.hardware.Camera.PreviewCallback() {
         @Override
         public void onPreviewFrame(byte[] data, theta360.hardware.Camera camera) {
-            prCallback.onPreviewFrame(data, camera);
+            if (prCallback != null) {
+                prCallback.onPreviewFrame(data, camera);
+            }
         }
     };
 

@@ -246,7 +246,9 @@ public class VCamera extends Camera {
     private android.hardware.Camera.PreviewCallback previewCallback = new android.hardware.Camera.PreviewCallback() {
         @Override
         public void onPreviewFrame(byte[] data, android.hardware.Camera camera) {
-            prCallback.onPreviewFrame(data, camera);
+            if (prCallback != null) {
+                prCallback.onPreviewFrame(data, camera);
+            }
         }
     };
 
