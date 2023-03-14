@@ -246,7 +246,9 @@ public class VCamera extends Camera {
     private android.hardware.Camera.PreviewCallback previewCallback = new android.hardware.Camera.PreviewCallback() {
         @Override
         public void onPreviewFrame(byte[] data, android.hardware.Camera camera) {
-            prCallback.onPreviewFrame(data, camera);
+            if (prCallback != null) {
+                prCallback.onPreviewFrame(data, camera);
+            }
         }
     };
 
@@ -326,11 +328,13 @@ public class VCamera extends Camera {
 
     @Override
     public void setOneShotPreviewCallback(PreviewCallback cb) {
+        prCallback = cb;
         mCamera.setOneShotPreviewCallback(previewCallback);
     }
 
     @Override
     public void setPreviewCallbackWithBuffer(PreviewCallback cb) {
+        prCallback = cb;
         mCamera.setPreviewCallbackWithBuffer(previewCallback);
     }
 
@@ -438,7 +442,8 @@ public class VCamera extends Camera {
 
     @Override
     public void setPreviewCallback(PreviewCallback cb) {
-        mCamera.setPreviewCallback(null);
+        prCallback = cb;
+        mCamera.setPreviewCallback(previewCallback);
     }
 
     @Override
