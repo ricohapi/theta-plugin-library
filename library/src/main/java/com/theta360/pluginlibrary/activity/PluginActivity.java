@@ -459,6 +459,26 @@ public abstract class PluginActivity extends AppCompatActivity {
     }
 
     /**
+     * Turn off/on Bluetooth
+     */
+    public void notificationBluetoothOff() {
+        sendBroadcast(new Intent(Constants.ACTION_BLUETOOTH_OFF));
+    }
+    public void notificationBluetoothOn() {
+        sendBroadcast(new Intent(Constants.ACTION_BLUETOOTH_ON));
+    }
+
+    /**
+     * Turn off/on GNSS
+     */
+    public void notificationGpsOff() {
+        sendBroadcast(new Intent(Constants.ACTION_GPS_OFF));
+    }
+    public void notificationGpsOn() {
+        sendBroadcast(new Intent(Constants.ACTION_GPS_ON));
+    }
+
+    /**
      * Updating the Database in X Models
      */
     public void notificationDatabaseUpdate(@NonNull String target) {

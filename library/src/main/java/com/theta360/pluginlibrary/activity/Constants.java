@@ -44,6 +44,12 @@ final class Constants {
     static final String ACTION_WLAN_AP = "com.theta360.plugin.ACTION_WLAN_AP";
     static final String ACTION_WLAN_CL = "com.theta360.plugin.ACTION_WLAN_CL";
 
+    static final String ACTION_BLUETOOTH_OFF = "com.theta360.plugin.ACTION_BLUETOOTH_OFF";
+    static final String ACTION_BLUETOOTH_ON = "com.theta360.plugin.ACTION_BLUETOOTH_ON";
+
+    static final String ACTION_GPS_OFF = "com.theta360.plugin.ACTION_GPS_TAG_RECORDING_OFF";
+    static final String ACTION_GPS_ON = "com.theta360.plugin.ACTION_GPS_TAG_RECORDING_ON";
+
     static final String ACTION_DATABASE_UPDATE = "com.theta360.plugin.ACTION_DATABASE_UPDATE";
     static final String TARGETS = "targets";
 
