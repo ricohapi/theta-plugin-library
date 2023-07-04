@@ -511,6 +511,20 @@ public abstract class PluginActivity extends AppCompatActivity {
     }
 
     /**
+     * Suspend battery charging
+     */
+    public void notificationBatteryChargingSuspend() {
+        sendBroadcast(new Intent(Constants.ACTION_BATTERY_CHARGING_SUSPEND));
+    }
+
+    /**
+     * Resume battery charging
+     */
+    public void notificationBatteryChargingResume() {
+        sendBroadcast(new Intent(Constants.ACTION_BATTERY_CHARGING_RESUME));
+    }
+
+    /**
      * Start of camera control by WebApi
      */
     public void notificationWebApiCameraOpen() {
