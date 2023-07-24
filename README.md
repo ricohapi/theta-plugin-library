@@ -1,6 +1,6 @@
 # RICOH THETA Plug-in Library
 
-Version: 3.1.0
+Version: 3.2.0
 
 ## Contents
 
@@ -104,7 +104,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.theta360:pluginlibrary:3.1.0'
+    implementation 'com.theta360:pluginlibrary:3.2.0'
 }
 ```
 
