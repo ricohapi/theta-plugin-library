@@ -59,6 +59,8 @@ final class Constants {
     static final String ACTION_BATTERY_CHARGING_SUSPEND = "com.theta360.plugin.ACTION_BATTERY_CHARGING_SUSPEND";
     static final String ACTION_BATTERY_CHARGING_RESUME = "com.theta360.plugin.ACTION_BATTERY_CHARGING_RESUME";
 
+    static final String ACTION_POWER_OFF = "com.theta360.plugin.ACTION_POWER_OFF";
+
     static final String ACTION_PLUGIN_WEBAPI_CAMERA_OPEN = "com.theta360.plugin.ACTION_PLUGIN_WEBAPI_CAMERA_OPEN";
     static final String ACTION_PLUGIN_WEBAPI_CAMERA_CLOSE = "com.theta360.plugin.ACTION_PLUGIN_WEBAPI_CAMERA_CLOSE";
 
