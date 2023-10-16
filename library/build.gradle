@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
-def version = '3.2.0'
+def version = '3.3.0'
 def repo = new File(rootDir, "repository")
 
 android {
@@ -9,7 +9,7 @@ android {
     defaultConfig {
         minSdkVersion 25
         targetSdkVersion 29
-        versionCode 15
+        versionCode 16
         versionName "${version}"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

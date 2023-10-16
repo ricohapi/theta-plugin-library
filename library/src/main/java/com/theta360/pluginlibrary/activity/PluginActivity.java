@@ -525,6 +525,13 @@ public abstract class PluginActivity extends AppCompatActivity {
     }
 
     /**
+     * Power Off
+     */
+    public void notificationPowerOff() {
+        sendBroadcast(new Intent(Constants.ACTION_POWER_OFF));
+    }
+
+    /**
      * Start of camera control by WebApi
      */
     public void notificationWebApiCameraOpen() {
