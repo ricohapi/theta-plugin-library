@@ -1,6 +1,7 @@
-# RICOH THETA Plug-in Library
+# RICOH THETA Plugin Library
 
-Version: 3.3.0
+Version: 4.0.0  
+Plugin Library 4.0.0 supports Android X. Please use 3.3.0 if you want to use old Android support libraries.
 
 ## Contents
 
@@ -18,9 +19,9 @@ Version: 3.3.0
 
 > You agree to comply with all applicable export and import laws and regulations applicable to the jurisdiction in which the Software was obtained and in which it is used. Without limiting the foregoing, in connection with use of the Software, you shall not export or re-export the Software  into any U.S. embargoed countries (currently including, but necessarily limited to, Crimea – Region of Ukraine, Cuba, Iran, North Korea, Sudan and Syria) or  to anyone on the U.S. Treasury Department’s list of Specially Designated Nationals or the U.S. Department of Commerce Denied Person’s List or Entity List.  By using the Software, you represent and warrant that you are not located in any such country or on any such list.  You also agree that you will not use the Software for any purposes prohibited by any applicable laws, including, without limitation, the development, design, manufacture or production of missiles, nuclear, chemical or biological weapons.
 
-By using the RICOH THETA Plug-in Library, you are agreeing to the above and the license terms, [LICENSE.txt](LICENSE.txt).
+By using the RICOH THETA Plugin Library, you are agreeing to the above and the license terms, [LICENSE.txt](LICENSE.txt).
 
-Copyright &copy; 2018-2022 Ricoh Company, Ltd.
+Copyright &copy; 2018 Ricoh Company, Ltd.
 
 <a name="files"></a>
 ## Files included in the archive
@@ -28,7 +29,7 @@ Copyright &copy; 2018-2022 Ricoh Company, Ltd.
 ```
 ├── README.md:            This file
 ├── LICENSE.txt:          Files concerning the contract
-├── library:              Plug-in library
+├── library:              Plugin library
 ├── build.gradle:         Android Studio build script
 ├── gradle:               Android Studio build script
 ├── gradle.properties:    Android Studio build script
@@ -66,16 +67,16 @@ This Library has been confirmed to operate under the following conditions.
 * Android Gradle Plugin Version 3.6.4
 * Gradle Version 5.6.4
 * Android&trade; SDK (API Level 29)
-* compileSdkVersion 29
+* compileSdkVersion 31
 * minSdkVersion 25
 * targetSdkVersion 29
 
 <a name="library"></a>
 ## Contents of the Library
 
-* This plug-in library provides following features.
+* This plugin library provides following features.
     * Get KeyEvent for THETA V/Z1
-    * Terminate Plug-in
+    * Terminate Plugin
     * Control LED/OLED
     * Control speaker
     * Simple method to send THETA specified broadcast intent, please refer to ricoh.api website for detail.
@@ -104,18 +105,18 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.theta360:pluginlibrary:3.3.0'
+    implementation 'com.theta360:pluginlibrary:4.0.0'
 }
 ```
 
 <a name="see_also"></a>
 ## See Also
 
-* The latest information related to plug-in development is published on [api.ricoh](https://api.ricoh/docs/theta-plugin/).
-* The latest plug-in library is released on [the GitHub project](https://github.com/ricohapi/theta-plugin-library).
-* The examples which use the RICOH THETA Plug-in Library are below.
-  * [RICOH THETA Plug-in SDK](https://github.com/ricohapi/theta-plugin-sdk) is the primary project to develop your original plug-in.  
-  * [THETA X Plug-in : Camera API Sample](https://github.com/ricohapi/theta-plugin-camera-api-sample-x) is the sample plug-in for RICOH THETA X, which uses Camera API.
+* The latest information related to plugin development is published on [theta-api-specs](https://github.com/ricohapi/theta-api-specs/tree/main/ricoh-theta-plugin).
+* The latest plugin library is released on [the GitHub project](https://github.com/ricohapi/theta-plugin-library).
+* The examples which use the RICOH THETA Plugin Library are below.
+  * [RICOH THETA Plugin SDK](https://github.com/ricohapi/theta-plugin-sdk) is the primary project to develop your original plugin.  
+  * [THETA X Plugin : Camera API Sample](https://github.com/ricohapi/theta-plugin-camera-api-sample-x) is the sample plugin for RICOH THETA X, which uses Camera API.
 
 <a name="troubleshooting"></a>
 ## Troubleshooting
