@@ -16,7 +16,7 @@
 
 package com.theta360.pluginlibrary.exif;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * SensorValues class

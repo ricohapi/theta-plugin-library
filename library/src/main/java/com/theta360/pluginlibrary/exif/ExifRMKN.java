@@ -16,7 +16,7 @@
 
 package com.theta360.pluginlibrary.exif;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.theta360.pluginlibrary.exif.utils.Buffer;
 import com.theta360.pluginlibrary.exif.values.ExposureProgram;

@@ -17,7 +17,7 @@
 package com.theta360.pluginlibrary.exif;
 
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.theta360.pluginlibrary.exif.objects.box.AXYZ;
 import com.theta360.pluginlibrary.exif.objects.box.BoxSpec;
 import com.theta360.pluginlibrary.exif.objects.box.ColorSpace;
