@@ -21,9 +21,10 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.theta360.pluginlibrary.callback.KeyCallback;
 import com.theta360.pluginlibrary.values.ExitStatus;

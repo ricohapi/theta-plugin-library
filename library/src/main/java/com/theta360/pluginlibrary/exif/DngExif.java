@@ -19,7 +19,7 @@ package com.theta360.pluginlibrary.exif;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.theta360.pluginlibrary.exif.values.exif.IFD;
 import com.theta360.pluginlibrary.exif.values.exif.Tag;

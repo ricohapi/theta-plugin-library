@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Locale;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.apache.sanselan.ImageReadException;
 import org.apache.sanselan.ImageWriteException;

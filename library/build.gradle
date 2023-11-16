@@ -1,18 +1,18 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
-def version = '3.3.0'
+def version = '4.0.0'
 def repo = new File(rootDir, "repository")
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
     defaultConfig {
         minSdkVersion 25
         targetSdkVersion 29
-        versionCode 16
+        versionCode 17
         versionName "${version}"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -32,13 +32,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation 'androidx.core:core:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.annotation:annotation-jvm:1.7.0'
     implementation 'org.apache.sanselan:sanselan:0.97-incubator'
-    implementation "net.danlew:android.joda:2.9.9.4"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation files('..\\libs\\XCamera.jar')
+    implementation 'net.danlew:android.joda:2.9.9.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation files('../libs/XCamera.jar')
 }
 
 uploadArchives {
