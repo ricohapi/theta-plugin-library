@@ -112,11 +112,6 @@ dependencies {
 }
 ```
 
-<a name="troubleshooting"></a>
-## Troubleshooting
-
-If you had a request or found a problem, please create an issue on [the GitHub project](https://github.com/ricohapi/theta-plugin-library/issues).
-
 <a name="trademark"></a>
 ## Trademark Information
 
