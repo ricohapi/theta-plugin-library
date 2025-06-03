@@ -13,7 +13,6 @@ Plugin Library 4.0.0 supports Android X. Please use 3.3.0 if you want to use old
 * [Technical requirements for development](#requirements)
 * [Contents of the Library](#library)
 * [How to Use](#how_to_use)
-* [Troubleshooting](#troubleshooting)
 * [Trademark Information](#trademark)
 
 <a name="terms"></a>
