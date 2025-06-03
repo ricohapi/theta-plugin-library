@@ -3,6 +3,9 @@
 Version: 4.0.0  
 Plugin Library 4.0.0 supports Android X. Please use 3.3.0 if you want to use old Android support libraries.
 
+> [!NOTE]  
+> If you have any questions or encounter any issues, please visit [Discussions](https://github.com/ricohapi/awesome-theta/discussions?discussions_q=) and create a new discussion thread.
+
 ## Contents
 
 * [Terms of Service](#terms)
@@ -10,7 +13,6 @@ Plugin Library 4.0.0 supports Android X. Please use 3.3.0 if you want to use old
 * [Technical requirements for development](#requirements)
 * [Contents of the Library](#library)
 * [How to Use](#how_to_use)
-* [See Also](#see_also)
 * [Troubleshooting](#troubleshooting)
 * [Trademark Information](#trademark)
 
@@ -85,6 +87,7 @@ This Library has been confirmed to operate under the following conditions.
         * theta360.media.MediaRecorder
         * etc.
     * Also implement Factory class wrapping Camera & MediaRecorder of THETA V/Z1 and THETA X.
+* See also [theta-api-specs](https://github.com/ricohapi/theta-api-specs/tree/main/ricoh-theta-plugin) for API references of development plugin.
 
 <a name="how_to_use"></a>
 ## How to Use
@@ -108,15 +111,6 @@ dependencies {
     implementation 'com.theta360:pluginlibrary:4.0.0'
 }
 ```
-
-<a name="see_also"></a>
-## See Also
-
-* The latest information related to plugin development is published on [theta-api-specs](https://github.com/ricohapi/theta-api-specs/tree/main/ricoh-theta-plugin).
-* The latest plugin library is released on [the GitHub project](https://github.com/ricohapi/theta-plugin-library).
-* The examples which use the RICOH THETA Plugin Library are below.
-  * [RICOH THETA Plugin SDK](https://github.com/ricohapi/theta-plugin-sdk) is the primary project to develop your original plugin.  
-  * [THETA X Plugin : Camera API Sample](https://github.com/ricohapi/theta-plugin-camera-api-sample-x) is the sample plugin for RICOH THETA X, which uses Camera API.
 
 <a name="troubleshooting"></a>
 ## Troubleshooting
