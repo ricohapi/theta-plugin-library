@@ -1,7 +1,9 @@
 # RICOH THETA Plugin Library
 
-Version: 4.0.0  
-Plugin Library 4.0.0 supports Android X. Please use 3.3.0 if you want to use old Android support libraries.
+Version: 4.0.1  
+
+> [!NOTE]  
+> Plugin Library 4.0.0 and later supports AndroidX. Please use 3.3.0 if you want to use old Android support libraries.
 
 > [!NOTE]  
 > If you have any questions or encounter any issues, please visit [Discussions](https://github.com/ricohapi/awesome-theta/discussions?discussions_q=) and create a new discussion thread.
@@ -107,7 +109,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.theta360:pluginlibrary:4.0.0'
+    implementation 'com.theta360:pluginlibrary:4.0.1'
 }
 ```
 
